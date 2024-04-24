@@ -107,9 +107,15 @@
                     <button>Send</button>
                 </div> -->
 
-                <div *ngFor="let msg of messages">
-                    <p>
-                        <strong>{{ msg.sender }}:</strong> {{ msg.message }}
+                <div *ngFor="let message of messages">
+                    <p
+                        *ngIf="
+                            message &&
+                            message.senderId &&
+                            message.messageContent
+                        "
+                    >
+                        {{ message.senderId }}: {{ message.messageContent }}
                     </p>
                 </div>
                 <div class="chat-input">

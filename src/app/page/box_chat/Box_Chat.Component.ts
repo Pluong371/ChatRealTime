@@ -49,8 +49,16 @@ export class Box_ChatComponent implements OnInit {
         //      this.changeDetector.detectChanges();
         // });
         // this.ChatService.subscribeToChatBox();
+        this.ChatService.messages.subscribe((message) => {
+            if (message) {
+                 
+                this.messages.push(message);
+            }
+        });
     }
     sendMessage(messageContent: string) {
+         console.log('Sending message:', messageContent);
+        this.messages.push(this.messages);
         this.ChatService.sendMessage(messageContent);
         this.messageContent = '';
     }
@@ -112,14 +120,7 @@ export class Box_ChatComponent implements OnInit {
                     console.log(response);
                     this.isLoggedIn = true;
                     this.customerName = customerName;
-                    this.ChatService.messages.subscribe((message) => {
-                        console.log('Received message: ', message);
-                        this.messages.push(message);
-
-                        console.log(this.messages);
-                         this.changeDetector.detectChanges();
-                    });
-                    this.ChatService.subscribeToChatBox();
+                    
                 },
                 error: (error) => {
                     console.log(error);

@@ -10,8 +10,8 @@ import {map} from 'rxjs/operators';
 export class ChatService {
     private chatBox = '17500ab4-bfac-472b-acad-10da130fd17d';
     private userAccountId_static = 'e1edc6ed-af33-4a72-acfc-9219ce778d46';
-    private changeMessage = new BehaviorSubject({});
-    messages: Observable<Message>;
+    private changeMessage = new BehaviorSubject<Message>(null);
+    messages: Observable<Message> = this.changeMessage.asObservable();
 
     constructor(private stompService: StompRService) {
         this.stompService.config = {
@@ -22,18 +22,18 @@ export class ChatService {
             reconnect_delay: 5000,
             debug: true
         };
-
         this.stompService.initAndConnect();
+        this.subscribeToMessages();
     }
 
-    getMessages() {
-        this.stompService.watch(`/topic/message/${this.chatBox}`).subscribe((message) => {
-            this.changeMessage.next(message)
-        })
-    }
 
-    subscribeToChatBox() {
-        this.stompService.subscribe(`/topic/messages/${this.chatBox}`);
+
+    subscribeToMessages() {
+        this.stompService
+            .subscribe(`/topic/messages/${this.chatBox}`)
+            .subscribe((message: Message) => {
+                this.changeMessage.next(message);
+            });
     }
 
     sendMessage(messageContent: string) {
