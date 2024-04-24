@@ -1,0 +1,128 @@
+<div class="box-chat">
+    <div class="chat-container" *ngIf="showChatBox">
+        <div class="chat-header">
+            <i class="fa-solid fa-user-astronaut fa-2xl"></i>
+            <h3>Tinny Chat</h3>
+            <div *ngIf="isLoggedIn == true">
+                <button (click)="logout()" style="margin-left: 100px">
+                    Logout
+                </button>
+            </div>
+        </div>
+        <div class="chat-messages">
+            <div
+                class="login"
+                *ngIf="response?.allowGuest === 1 && isLoggedIn == false"
+            >
+                <div>
+                    <p>
+                        Chào mừng bạn đến với chúng tôi. Vui lòng giới thiệu về
+                        bạn theo mẫu dưới đây trước khi bắt đầu trò chuyện.
+                    </p>
+                </div>
+                <div class="login_customer">
+                    <form
+                        class="form_login_customer"
+                        [formGroup]="form_login_customer"
+                        (ngSubmit)="loginCustomer()"
+                    >
+                        <div class="form-group">
+                            <label for="username">Họ Và Tên</label>
+                            <input
+                                type="text"
+                                id="name"
+                                formControlName="name"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                formControlName="email"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="PhoneNumber">SDT</label>
+                            <input
+                                type="number"
+                                id="PhoneNumber"
+                                formControlName="phoneNumber"
+                                class="form-control"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            style="display: block; margin: auto"
+                            (click)="loginCustomer()"
+                        >
+                            Login
+                        </button>
+                        <div class="clearfix"></div>
+                        <div
+                            class="social-list"
+                            style="padding-top: 3px; padding-bottom: 8px"
+                        >
+                            <span>Hoặc Đăng Nhập với</span>
+                            <a href="#" class="facebook">
+                                <i
+                                    class="fa-brands fa-facebook fa-2xl"
+                                    style="
+                                        color: #176bab;
+                                        padding-left: 8px;
+                                        padding-right: 8px;
+                                    "
+                                ></i>
+                            </a>
+
+                            <a
+                                href="#"
+                                class="google-bg"
+                                (click)="loginByGoogle()"
+                            >
+                                <i
+                                    class="fa-brands fa-google fa-2xl"
+                                    style="color: #e13d3d"
+                                ></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div *ngIf="isLoggedIn == true" class="message_b">
+                <!-- <div class="message">
+                    <p class="text">Hello, {{customerName}}</p>
+                </div>
+                <div class="message_sent">
+                    <p class="text">I'm good, thanks! How about you?</p>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type a message..." />
+                    <button>Send</button>
+                </div> -->
+
+                <div *ngFor="let msg of messages">
+                    <p>
+                        <strong>{{ msg.sender }}:</strong> {{ msg.message }}
+                    </p>
+                </div>
+                <div class="chat-input">
+                    <input
+                        [(ngModel)]="messageContent"
+                        placeholder="Type your message here"
+                    />
+                    <button (click)="sendMessage(messageContent)">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="icon_mess" (click)="testBox()">
+        <i class="fa-regular fa-envelope fa-2xl" (click)="toggleChatBox()"></i>
+    </div>
+</div>

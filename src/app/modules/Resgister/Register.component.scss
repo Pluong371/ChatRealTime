@@ -1,0 +1,369 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #424242;
+}
+
+.img-fluid {
+    max-width: 100% !important;
+    height: auto;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+/** Login 22 start **/
+.login-22 {
+    top: 0;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    opacity: 1;
+    z-index: 999;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.login-22 a {
+    text-decoration: none;
+}
+
+.login-22 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Jost', sans-serif;
+}
+
+.login-22 .form-section {
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.login-22 .form-section .details{
+    padding: 80px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    background: #f5f5f5;
+    position: relative;
+    z-index: 0;
+}
+
+.login-22 .form-check-input:checked {
+    display: none;
+}
+
+.login-22 .form-section p{
+    color: #535353;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.login-22 .form-section p a{
+    color: #535353;
+}
+
+.login-22 .form-section ul{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.login-22 .form-section .social-list li {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.login-22 .logo-2 img{
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+.login-22 .form-section .thembo{
+    margin-left: 4px;
+}
+
+.login-22 .form-section h3 {
+    margin: 0 0 40px;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: 'Jost', sans-serif;
+    color: #040404;
+}
+
+.login-22 .form-section .form-group {
+    margin-bottom: 40px;
+}
+
+.login-22 .form-section .form-box {
+    float: left;
+    width: 100%;
+    position: relative;
+    text-align: left;
+}
+
+.login-22 .form-section .form-control {
+    font-size: 16px;
+    outline: none;
+    background: transparent!important;
+    color: #535353;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    border-bottom: solid 2px #bdbdbd;
+}
+
+.login-22 .form-section .btn-md {
+    cursor: pointer;
+    padding: 12px 50px 11px 50px;
+    font-size: 15px;
+    font-weight: 400;
+    height: 55px;
+    font-family: 'Jost', sans-serif;
+    border-radius: 100px;
+}
+
+.login-22 .form-section button:focus {
+    outline: none;
+    outline: 0 auto -webkit-focus-ring-color;
+}
+
+.login-22 .form-section .btn-theme.focus, .btn-theme:focus {
+    box-shadow: none;
+}
+
+.login-22 .form-section .terms{
+    margin-left: 3px;
+}
+
+.login-22 .form-section input[type=checkbox], input[type=radio] {
+    margin-top: 4px;
+}
+
+.login-22 .form-section .checkbox a {
+    float: right;
+}
+
+.login-22 .form-section .checkbox {
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+.login-22 .form-section .form-check{
+    float: left;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.login-22 .form-section .form-check a {
+    color: #535353;
+    float: right;
+}
+
+.login-22 .form-section .form-check-input {
+    position: absolute;
+    margin-left: 0;
+}
+
+.login-22 .form-section .form-check label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 2px;
+    margin-left: -25px;
+    border-radius: 0px;
+    background: #f5f5f5;
+    border: solid 2px #bdbdbd;
+}
+
+.login-22 .form-section .form-check-label {
+    padding-left: 25px;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #535353;
+}
+
+.login-22 .form-section input[type=checkbox]:checked + label:before {
+    font-weight: 600;
+    color: #fff;
+    line-height: 14px;
+    font-size: 12px;
+    content: "\2713";
+    padding-left: 3px;
+}
+
+.login-22 .form-section .checkbox-theme input[type="checkbox"]:checked + label::before {
+    color: #fff;
+    background: #8686ff;
+    border: solid 2px #8686ff;
+}
+
+.login-22 .form-section .btn-theme {
+    background: #8686ff;
+    border: none;
+    color: #fff;
+}
+
+.login-22 .form-section .btn-theme:hover {
+    background: #7878f3;
+}
+
+.login-22 .form-section a.forgot-password {
+    font-size: 16px;
+    color: #535353;
+}
+
+.login-22 .social-list{
+    float: left;
+}
+
+.login-22 .social-list span {
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #535353;
+}
+
+.login-22 .social-list a {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    margin: 0 2px 2px 0;
+    border-radius: 50px;
+}
+
+.login-22-bodycolor .ripple-background{
+    z-index: -999!important;
+}
+
+.login-22-bodycolor .ripple-background .circle{
+    position: absolute;
+    border-radius: 50%;
+    animation: ripple 15s infinite;
+}
+
+.login-22-bodycolor .ripple-background .small{
+    width: 200px;
+    height: 200px;
+    left: -100px;
+    top: -100px;
+    z-index: -999;
+}
+
+.login-22-bodycolor .ripple-background .medium{
+    width: 400px;
+    height: 400px;
+    left: -200px;
+    bottom: -200px;
+    z-index: -999;
+}
+
+.login-22-bodycolor .ripple-background .large{
+    width: 600px;
+    height: 600px;
+    left: -300px;
+    top: -300px;
+    z-index: -999;
+}
+
+.login-22-bodycolor .ripple-background .xlarge{
+    width: 800px;
+    height: 800px;
+    left: -400px;
+    top: -400px;
+    z-index: -999;
+}
+
+.login-22-bodycolor .ripple-background .xxlarge{
+    width: 1000px;
+    height: 1000px;
+    left: -500px;
+    top: -500px;
+    z-index: -999;
+}
+
+.login-22-bodycolor .ripple-background .shade1{
+    background: #0000ff26;
+}
+
+.login-22-bodycolor .ripple-background .shade2{
+    background: #b9b9ff;
+}
+
+.login-22-bodycolor .ripple-background .shade3{
+    background: #0000ff26;
+}
+
+.login-22-bodycolor .ripple-background .shade4{
+    background: #0a58ca;
+}
+
+.login-22-bodycolor .ripple-background .shade5{
+    background: #0000ff26;
+}
+
+@keyframes ripple{
+    0%{
+        transform: scale(0.8);
+    }
+
+    50%{
+        transform: scale(1.2);
+    }
+
+    100%{
+        transform: scale(0.8);
+    }
+}
+
+/** Social media **/
+.login-22 .facebook-bg{
+    background: #4867aa;
+}
+
+.login-22 .facebook-bg:hover {
+    background: #3b589e;
+}
+
+.login-22 .twitter-bg {
+    background: #33CCFF;
+}
+
+.login-22 .twitter-bg:hover {
+    background: #2abdef;
+}
+
+.login-22 .google-bg {
+    background: #db4437;
+}
+
+.login-22 .google-bg:hover {
+    background: #cc4437;
+}
+
+.login-22 .linkedin-bg {
+    background: #2392e0;
+}
+
+.login-22 .linkedin-bg:hover {
+    background: #1c82ca;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .login-22 .form-section .details{
+        padding: 50px 30px;
+    }
+
+    .login-22-bodycolor .ripple-background{
+        display: none;
+    }
+}
+/** Login 22 end **/
