@@ -8,12 +8,15 @@ import {Router} from '@angular/router';
     styleUrls: ['./Menu.component.scss']
 })
 export class MenuCompontent implements OnInit {
-    constructor(private router: Router) { }
+    constructor(private router: Router) {}
     roleId: String;
+    name:string;
 
     ngOnInit(): void {
         const auth = JSON.parse(localStorage.getItem('authentication'));
+        console.log(auth);
         this.roleId = auth.roleEntityDtoList[0].roleId;
+        this.name = auth.employeeName;
     }
     logout() {
         localStorage.removeItem('authentication');

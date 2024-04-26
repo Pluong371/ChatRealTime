@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-2">
             <svg>
-             
                 <g filter="url(#filter0_dd_119_3105)">
                     <path
                         d="M25.5 6.25C37.1875 6.25 46.75 13.7083 46.75 22.9167C46.75 32.125 37.1875 39.5833 25.5 39.5833C22.865 39.5833 20.3363 39.2083 17.9988 38.5417C11.7938 43.75 4.25 43.75 4.25 43.75C9.20125 38.8958 9.9875 35.625 10.0938 34.375C6.48125 31.3958 4.25 27.3542 4.25 22.9167C4.25 13.7083 13.8125 6.25 25.5 6.25Z"
@@ -67,24 +66,33 @@
                         />
                     </filter>
                 </defs>
-                
             </svg>
             <a> Tinny</a>
-
-            
         </div>
         <div class="col-8">
-            <a routerLink="/home">Trang Chủ</a>
-            <a routerLink="/message_employee">Tin Nhắn</a>
-            <a routerLink="/customer">Khách Hàng</a>
-            <a *ngIf="roleId === 'ADMIN'" routerLink="/employee">Nhân viên</a>
+        <div *ngIf="roleId === 'ADMIN'">
+            
+                <a routerLink="/admin_home" style="margin-right: 40px;">Trang Chủ</a>
+                <a routerLink="/message_employee"style="margin-right: 40px;">Tin Nhắn</a>
+        
+                <a routerLink="/customer"style="margin-right: 40px;">Khách Hàng</a>
+                <a routerLink="/employee"style="margin-right: 40px;">Nhân viên</a>
+            
+
+        </div>
+        
+        <div *ngIf="roleId === 'SALE'">
+                <a routerLink="/home"style="margin-right: 40px;">Trang Chủ</a>
+                <a routerLink="/message_employee"style="margin-right: 40px;">Tin Nhắn</a>
+                <a routerLink="/customer"style="margin-right: 40px;">Khách Hàng</a>
+        </div>
         </div>
         <div class="profileUser col-2">
             <img
                 src="https://s3-alpha-sig.figma.com/img/324d/203b/d43224d1fd194e96013ebba48bef7883?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IrU2uh3VmBJ7d1hmFp4jFdzMND-fHthbLcnpebWqizNYBErgqL~AswyICZ1l69bJwQPzR2Z6NNkl0vo9zIIGNiR6XF6rl5pk3TT0wjkUqd9rPWuQvi5QUe7ncHmEhNVtkruVf1n3nGdlZkzaM9UQcMpP16mzPgs3eNivg3SntLfu3ht8ZxdVpdI9oIvCEv5EffmcLE4dU1WtWmxk6hbmRHojBQaHMpM2gO6m3hoRzj3dh0K9t8wYSYdEPZDjotwtJ~Xc8YX36wvJMIrgAvDnI8Y2JHzn5fU4kwps5hFMmXCB4M9S1Bcmqtd8HH3cgBCuzkCFUov4bsH2aM-1w1szoA__"
             />
-            <a>Chào</a>
-            <a (click)="logout()" style="font-size: 16px;">Đăng xuất</a>
+            <a  style="font-size: 15px">Chào {{name}} </a>
+            <a (click)="logout()" style="font-size: 15px; margin-left: 40px;">Đăng xuất</a>
         </div>
     </div>
 </div>

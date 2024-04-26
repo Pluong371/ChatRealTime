@@ -11,6 +11,7 @@ import {ForgotPasswordComponent} from '@modules/Forgot_Password/Forgot_Password.
 import {Message_Employee} from './page/Message_Employee/Message_Employee.component';
 import {Test} from './page/page_test/home.component';
 import {Box_ChatComponent} from './page/box_chat/Box_Chat.Component';
+import { Admin_HomeComponent } from './page_admin/Admin_Home.Component';
 
 const routes: Routes = [
     {
@@ -28,7 +29,12 @@ const routes: Routes = [
                 path: 'message_employee',
                 component: Message_Employee,
                 canActivate: [AuthGuard]
-            }
+            },
+            {
+                path: 'admin_home',
+                component: Admin_HomeComponent,
+                canActivate: [AuthGuard]
+            },
         ]
     },
 

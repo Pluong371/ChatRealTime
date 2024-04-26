@@ -1,9 +1,9 @@
-{
+    {
     "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": "./src",
         "outDir": "./dist/out-tsc",
-        "sourceMap": false,
+        "sourceMap": true,
         "declaration": false,
         "downlevelIteration": true,
         "experimentalDecorators": true,
@@ -23,7 +23,9 @@
             "@modules/*": ["app/modules/*"],
             "@pages/*": ["app/pages/*"],
             "@services/*": ["app/services/*"],
-            "@/*": ["app/*"]
+            "@/*": ["app/*"],
+            "@env/*": ["environments/*"]
+            
         },
         "useDefineForClassFields": false
     },

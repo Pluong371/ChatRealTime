@@ -107,11 +107,10 @@
                     <button>Send</button>
                 </div> -->
 
-                <div *ngFor="let msg of messages">
-                    <p>
-                        <strong>{{ msg.sender }}:</strong> {{ msg.message }}
-                    </p>
+                <div *ngFor="let message of messages">
+                    {{message}}
                 </div>
+
                 <div class="chat-input">
                     <input
                         [(ngModel)]="messageContent"

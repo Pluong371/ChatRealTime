@@ -11,8 +11,20 @@
   </div>
 </div>
 <div class="col-8">
-  <p> 
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quidem molestiae optio natus vitae suscipit ipsam, illo sunt cum quae iusto consequuntur ab quo delectus necessitatibus sed. Eaque, consectetur debitis?
-  </p>
+ <div *ngFor="let message of messages">
+  {{ message}}
 </div>
+  <div class="chat-input">
+                    <input
+                        [(ngModel)]="messageContent"
+                        placeholder="Type your message here"
+                    />
+                    <button (click)="sendMessage(messageContent)">Send</button>
+                    
+                </div>
+  <div>
+
+  </div>
+</div>
+
 </div>

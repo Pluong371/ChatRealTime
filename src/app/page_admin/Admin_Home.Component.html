@@ -1,0 +1,33 @@
+<h1>Thêm Trang Mới</h1>
+
+<!-- Form lấy Thông Tin Trang và địa chỉ Trang -->
+<form (ngSubmit)="onCreateWeb()" [formGroup]="AddWebForm">
+        <div class="form-group">
+        <label for="website_name">Ten Trang</label>
+        <input
+            type="text"
+            class="form-control"
+            id="website_name"
+            formControlName="website_name"
+            [(ngModel)]="website_name"
+            required
+        />
+    </div>
+    <div class="form-group">
+        <label for="url">Địa Chỉ Trang</label>
+        <input
+            type="text"
+            class="form-control"
+            id="url"
+            formControlName="url"
+            [(ngModel)]="url"
+            required
+        />
+    </div>
+<div class="form-group">
+    <label for="allowGuest">Allow Guest</label>
+    <input type="checkbox" formControlName="allowGuest" id="allowGuest">
+</div>
+
+    <button type="submit" (click)="onCreateWeb()" class="btn btn-primary">Thêm Trang</button>
+</form>
