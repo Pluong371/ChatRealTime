@@ -108,16 +108,9 @@
                 </div> -->
 
                 <div *ngFor="let message of messages">
-                    <p
-                        *ngIf="
-                            message &&
-                            message.senderId &&
-                            message.messageContent
-                        "
-                    >
-                        {{ message.senderId }}: {{ message.messageContent }}
-                    </p>
+                    {{message}}
                 </div>
+
                 <div class="chat-input">
                     <input
                         [(ngModel)]="messageContent"

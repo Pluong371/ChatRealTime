@@ -1,7 +1,7 @@
 import {Message} from '@stomp/stompjs';
 import {ChatService} from '@services/chat.service';
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ApiService} from '@services/api.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
@@ -24,7 +24,7 @@ export class Box_ChatComponent implements OnInit {
     apiResult = null;
     allowGuest = false;
     messageContent: string;
-    messages: any[] = [];
+    messages: any[]=[];
 
     constructor(
         private apiService: ApiService,
@@ -38,6 +38,7 @@ export class Box_ChatComponent implements OnInit {
             name: ['', Validators.required],
             phoneNumber: ['', Validators.required]
         });
+        this.messages = [];
     }
     ngOnInit() {
         console.log('box-chat');
@@ -51,14 +52,15 @@ export class Box_ChatComponent implements OnInit {
         // this.ChatService.subscribeToChatBox();
         this.ChatService.messages.subscribe((message) => {
             if (message) {
-                 
                 this.messages.push(message);
+                this.changeDetector.detectChanges();
             }
         });
     }
     sendMessage(messageContent: string) {
-         console.log('Sending message:', messageContent);
-        this.messages.push(this.messages);
+      
+        this.messages.push();
+        console.log(this.messages);
         this.ChatService.sendMessage(messageContent);
         this.messageContent = '';
     }
@@ -69,10 +71,8 @@ export class Box_ChatComponent implements OnInit {
             .then((result) => {
                 console.log(result);
                 this.isLoggedIn = true;
-                // const name = (result.additionalUserInfo.profile as any).name;
                 this.customerName = result.additionalUserInfo.profile['name'];
                 console.log(this.customerName);
-
                 return {
                     customerName: this.customerName,
                     isLoggedIn: this.isLoggedIn
@@ -120,11 +120,15 @@ export class Box_ChatComponent implements OnInit {
                     console.log(response);
                     this.isLoggedIn = true;
                     this.customerName = customerName;
-                    
                 },
                 error: (error) => {
                     console.log(error);
                 }
             });
+    }
+    getMessageContent() {
+            const websiteName = 'localhost:4200'; // replace with actual value
+            const customerId = 'e1edc6ed-af33-4a72-acfc-9219ce778d46';
+        this.ChatService.getMessages(customerId, websiteName);
     }
 }
