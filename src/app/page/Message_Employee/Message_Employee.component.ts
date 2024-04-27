@@ -1,8 +1,11 @@
+import {Employee} from './../../models/LoginComponent.model';
 import {FormGroup} from '@angular/forms';
 import {ChatService} from '@services/chat.service';
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import { log } from 'console';
+import {log} from 'console';
+import {Observable, catchError, map, tap} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'message_employee',
@@ -19,45 +22,44 @@ export class Message_Employee implements OnInit {
     apiResult = null;
     allowGuest = false;
     messageContent: string;
-    messages: any[]=[];
-
+    messages: any[] = [];
+    users$: Observable<any>;
+    selectedChatBox: any;
     constructor(
         private afAuth: AngularFireAuth,
         private ChatService: ChatService,
-        private changeDetector: ChangeDetectorRef
+        private changeDetector: ChangeDetectorRef,
+        private http: HttpClient
     ) {
         this.messages = [];
     }
 
     ngOnInit() {
-        console.log('box-chat');
         this.ChatService.messages.subscribe((message) => {
             if (message) {
                 this.messages.push(message);
                 this.changeDetector.detectChanges();
             }
         });
+        this.ChatService.getMessageContent().subscribe((response) => {
+            this.users$ = response;
+        });
     }
 
     sendMessage(messageContent: string) {
-        console.log('Sending message:',messageContent);
+        console.log('Sending message:', messageContent);
         this.messages.push();
 
         console.log(this.messages);
         this.ChatService.sendMessage(messageContent);
         this.messageContent = '';
-
-        
     }
 
+    selectChatBox(chatBox: any) {
+        this.selectedChatBox = chatBox;
+    }
     logout() {
         this.afAuth.signOut();
         this.isLoggedIn = false;
-    }
-
-    getMessageContent() {
-        const websiteName = 'localhost:4200'; // replace with actual value
-        const customerId = 'e1edc6ed-af33-4a72-acfc-9219ce778d46';
-        this.ChatService.getMessages(customerId, websiteName);
     }
 }

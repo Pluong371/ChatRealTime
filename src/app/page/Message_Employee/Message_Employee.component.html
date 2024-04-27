@@ -1,16 +1,18 @@
 <div class="row">
 <div class="col-4">
-  <div class="header">
-  <p>  Danh sách tin nhắn</p>
-  </div>
   <div>
-  
+  <div *ngFor="let user of users$ | async; index as i; first as isFirst">
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit aut quaerat libero excepturi earum mollitia voluptas eos dolores accusamus asperiores rem, error numquam eum doloribus ratione repellat inventore delectus dolor.
+       {{user.chatBoxName}}
     </p>
+  </div>
+   
   </div>
 </div>
 <div class="col-8">
+  <div class="header-chat">
+    <!-- <p>{{}}</p> -->
+  </div>
  <div *ngFor="let message of messages">
   {{ message}}
 </div>
@@ -22,6 +24,7 @@
                     <button (click)="sendMessage(messageContent)">Send</button>
                     
                 </div>
+               
   <div>
 
   </div>
