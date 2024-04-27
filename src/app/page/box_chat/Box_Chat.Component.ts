@@ -126,9 +126,9 @@ export class Box_ChatComponent implements OnInit {
                 }
             });
     }
-    getMessageContent() {
-            const websiteName = 'localhost:4200'; // replace with actual value
-            const customerId = 'e1edc6ed-af33-4a72-acfc-9219ce778d46';
-        this.ChatService.getMessages(customerId, websiteName);
-    }
+    // getMessageContent() {
+    //         const websiteName = 'localhost:4200'; // replace with actual value
+    //         const customerId = 'e1edc6ed-af33-4a72-acfc-9219ce778d46';
+    //     this.ChatService.getMessages(customerId, websiteName);
+    // }
 }
