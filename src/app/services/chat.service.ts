@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable, OnInit} from '@angular/core';
 import {StompRService} from '@stomp/ng2-stompjs';
 import {Message} from '@stomp/stompjs';
-import { log } from 'console';
+import {log} from 'console';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
@@ -16,6 +16,7 @@ export class ChatService implements OnInit {
 
     messages: Observable<Message> = this.changeMessage.asObservable();
     selectedUser: any = {};
+    chatBoxIdCustomer: string;
     constructor(
         private stompService: StompRService,
         private http: HttpClient
@@ -30,8 +31,6 @@ export class ChatService implements OnInit {
         };
         this.stompService.initAndConnect();
         this.subscribeToMessages(true);
-        this.subscribeToMessages(false);
-        
     }
     ngOnInit() {
         this.getMessageContent().subscribe((chatBoxId: string) => {
@@ -45,23 +44,26 @@ export class ChatService implements OnInit {
         this.selectedUser.employeeId = user.employeeId;
         console.log(this.selectedUser.employeeId);
     }
+    setChatBoxId(id: string) {
+        console.log(id);
+        this.chatBoxIdCustomer = id;
+    }
+
     subscribeToMessages(userType: boolean) {
-       
         let topic = '';
         if (userType) {
             topic = `/topic/messages/${this.selectedUser.chatBoxId}`;
         } else {
-            topic = `/topic/messages/${'this is employee chatbox id'}`;
+            topic = `/topic/messages/${this.chatBoxIdCustomer}`;
+            console.log(this.chatBoxIdCustomer);
         }
-        this.stompService
-            .subscribe(topic)
-            .subscribe((message: Message) => {
-                console.log(JSON.parse(message.body));
-                this.changeMessage.next(
-                    JSON.parse(message.body).messageContent
-                );
-            });
+
+        this.stompService.subscribe(topic).subscribe((message: Message) => {
+            console.log(JSON.parse(message.body));
+            this.changeMessage.next(JSON.parse(message.body).messageContent);
+        });
     }
+
     getMessageContent(): Observable<any> {
         const authentication = JSON.parse(
             localStorage.getItem('authentication')
@@ -91,20 +93,23 @@ export class ChatService implements OnInit {
         const params = new HttpParams()
             .set('website_name', websiteName)
             .set('employee_id', employeeId);
-            this.subscribeToMessages(true);
-        
+        this.subscribeToMessages(true);
 
         return this.http.get('http://localhost:8080/api/chatbox/employee/get', {
             params
         });
     }
 
-    sendMessageEmployee(messageContent: string, messageType: number, senderId: string) {
+    sendMessageEmployee(
+        messageContent: string,
+        messageType: number,
+        senderId: string
+    ) {
         if (messageContent && this.stompService.connected()) {
             console.log('Sending message:', this.selectedUser);
             const chatMessage = {
                 chatBoxId: this.selectedUser.chatBoxId,
-               senderId: senderId,
+                senderId: senderId,
                 messageContent: messageContent.trim(),
                 messageType: messageType,
                 status: 0
@@ -114,25 +119,26 @@ export class ChatService implements OnInit {
                 `/app/chat/${this.selectedUser.chatBoxId}`,
                 JSON.stringify(chatMessage)
             );
-
         }
     }
-     sendMessageCustomer(messageContent: string, messageType: number, senderId: string) {
+    sendMessageCustomer(
+        messageContent: string,
+        messageType: number,
+        senderId: string
+    ) {
         if (messageContent && this.stompService.connected()) {
-           
             const chatMessage = {
-                // chatBoxId: this.selectedUser.chatBoxId,
-               senderId: senderId,
+                chatBoxId: this.chatBoxIdCustomer,
+                senderId: senderId,
                 messageContent: messageContent.trim(),
                 messageType: messageType,
                 status: 0
             };
             console.log(chatMessage);
             this.stompService.publish(
-                `/app/chat/${"this is employee chatbox id"}`,
+                `/app/chat/${this.chatBoxIdCustomer}`,
                 JSON.stringify(chatMessage)
             );
-
         }
     }
 }

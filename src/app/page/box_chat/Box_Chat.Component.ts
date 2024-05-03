@@ -27,6 +27,7 @@ export class Box_ChatComponent implements OnInit {
     messages = [];
     messageData: any[] = [];
     customerId: any;
+    chatBoxId: any;
     constructor(
         private apiService: ApiService,
         private formBuilder: FormBuilder,
@@ -58,6 +59,8 @@ export class Box_ChatComponent implements OnInit {
                 this.changeDetector.detectChanges();
             }
         });
+        this.ChatService.setChatBoxId(this.chatBoxId)
+        console.log(this.chatBoxId);
     }
     sendMessage() {
         
@@ -132,6 +135,7 @@ export class Box_ChatComponent implements OnInit {
                     this.customerName = customerName;
                     this.customerId = response['customerId'];
                     this.getMessage();
+
                 },
 
                 error: (error) => {
@@ -146,19 +150,23 @@ export class Box_ChatComponent implements OnInit {
             .set('website_name', websiteName)
             .set('customer_id', customerId);
 
-        this.ChatService.subscribeToMessages(false);
+       
 
         this.http
             .get('http://localhost:8080/api/chatbox/customer/get', {params})
             .subscribe({
                 next: (response: any) => {
                     console.log(response);
+                    this.chatBoxId = response[0].chatBoxId;
                     this.messageData = response[0].messageList; // assuming the response contains a 'messages' property
                     console.log(this.messageData);
+                    this.ChatService.setChatBoxId(response[0].chatBoxId);
+                     this.ChatService.subscribeToMessages(false);
                 },
                 error: (error) => {
                     console.log(error);
                 }
+                
             });
     }
 }
