@@ -48,10 +48,16 @@ export class Box_ChatComponent implements OnInit {
         this.ChatService.messages.subscribe((message) => {
             console.log('Received message:', message);
             if (message) {
-                this.messages.push(message);
+                console.log(this.ChatService.messageBody)
+                let temp = this.ChatService.messageBody;
+                this.messages.push({
+                    message: temp.messageContent,
+                    messageType: temp.messageType,
+                
+                });
                 this.changeDetector.detectChanges();
                 console.log(message);
-                console.log(this.ChatService.messageBody);
+
                 
             }
         });

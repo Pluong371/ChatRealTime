@@ -108,17 +108,25 @@
                 </div> -->
 
                 <div *ngFor="let message of messageData">
+                    <div
+                    *ngIf="message.messageType === 0"
+                    style="text-align: right"
+                    >
                     {{ message.messageContent }}
+                </div>
+                <div *ngIf="message.messageType !== 0" style="text-align: left">
+                    {{ message.messageContent }}
+                    </div>
                 </div>
                 <div *ngFor="let web of messages">
                     <div
                         *ngIf="web.messageType === 0"
                         style="text-align: right"
                     >
-                        {{ web }}
+                        {{ web.message }}
                     </div>
                     <div *ngIf="web.messageType !== 0" style="text-align: left">
-                        {{ web}}
+                        {{ web.message}}
                     </div>
                 </div>
 
