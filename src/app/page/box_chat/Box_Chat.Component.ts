@@ -44,26 +44,20 @@ export class Box_ChatComponent implements OnInit {
     }
     ngOnInit() {
         console.log('box-chat');
-        // this.ChatService.messages.subscribe((message) => {
-        //     console.log('Received message: ', message);
-        //     this.messages.push(message);
 
-        //     console.log(this.messages);
-        //      this.changeDetector.detectChanges();
-        // });
-        // this.ChatService.subscribeToChatBox();
         this.ChatService.messages.subscribe((message) => {
             console.log('Received message:', message);
             if (message) {
                 this.messages.push(message);
                 this.changeDetector.detectChanges();
+                console.log(message);
+                console.log(this.ChatService.messageBody);
+                
             }
         });
-        this.ChatService.setChatBoxId(this.chatBoxId)
-        console.log(this.chatBoxId);
+        this.ChatService.setChatBoxId(this.chatBoxId);
     }
     sendMessage() {
-        
         this.ChatService.sendMessageCustomer(
             this.messageContent,
             0,
@@ -71,8 +65,9 @@ export class Box_ChatComponent implements OnInit {
         );
         this.messages.push();
         console.log(this.customerId);
-     
+       
         this.messageContent = '';
+      
     }
 
     loginByGoogle() {
@@ -135,7 +130,6 @@ export class Box_ChatComponent implements OnInit {
                     this.customerName = customerName;
                     this.customerId = response['customerId'];
                     this.getMessage();
-
                 },
 
                 error: (error) => {
@@ -150,23 +144,25 @@ export class Box_ChatComponent implements OnInit {
             .set('website_name', websiteName)
             .set('customer_id', customerId);
 
-       
-
         this.http
             .get('http://localhost:8080/api/chatbox/customer/get', {params})
             .subscribe({
                 next: (response: any) => {
                     console.log(response);
                     this.chatBoxId = response[0].chatBoxId;
-                    this.messageData = response[0].messageList; // assuming the response contains a 'messages' property
+                    this.messageData = response[0].messageList.sort(
+                        (a, b) => a.sendTime - b.sendTime
+                    ); // assuming the response contains a 'messages' property
+                    
                     console.log(this.messageData);
                     this.ChatService.setChatBoxId(response[0].chatBoxId);
-                     this.ChatService.subscribeToMessages(false);
+                    this.ChatService.subscribeToMessages(false);
+                    
                 },
+
                 error: (error) => {
                     console.log(error);
                 }
-                
             });
     }
 }

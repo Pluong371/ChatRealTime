@@ -17,6 +17,7 @@ export class ChatService implements OnInit {
     messages: Observable<Message> = this.changeMessage.asObservable();
     selectedUser: any = {};
     chatBoxIdCustomer: string;
+    messageBody: any;
     constructor(
         private stompService: StompRService,
         private http: HttpClient
@@ -31,6 +32,7 @@ export class ChatService implements OnInit {
         };
         this.stompService.initAndConnect();
         this.subscribeToMessages(true);
+        console.log('========================');
     }
     ngOnInit() {
         this.getMessageContent().subscribe((chatBoxId: string) => {
@@ -61,6 +63,7 @@ export class ChatService implements OnInit {
         this.stompService.subscribe(topic).subscribe((message: Message) => {
             console.log(JSON.parse(message.body));
             this.changeMessage.next(JSON.parse(message.body).messageContent);
+            this.messageBody= JSON.parse(message.body);
         });
     }
 
