@@ -72,7 +72,7 @@ export class Message_Employee implements OnInit {
         console.log(this.currentUser)
       
         this.ChatService.sendMessageEmployee(this.messageContent, 1, this.currentUser.employeeId);
-         this.changeDetector.detectChanges();
+        
         this.messageContent = '';
     }
 
