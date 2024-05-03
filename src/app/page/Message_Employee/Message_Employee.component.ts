@@ -23,8 +23,10 @@ export class Message_Employee implements OnInit {
     allowGuest = false;
     messageContent: string;
     messages: any[] = [];
-    users$: Observable<any>;
-    selectedChatBox: any;
+    users: any = [];
+    currentUser: any = {};
+    messageData: any[] = [];
+
     constructor(
         private afAuth: AngularFireAuth,
         private ChatService: ChatService,
@@ -41,23 +43,39 @@ export class Message_Employee implements OnInit {
                 this.changeDetector.detectChanges();
             }
         });
-        this.ChatService.getMessageContent().subscribe((response) => {
-            this.users$ = response;
+        this.ChatService.getMessageContent().subscribe({
+            next: (res: any) => {
+                console.log(res);
+                this.users = res;
+                console.log(this.users);
+            }
         });
     }
 
-    sendMessage(messageContent: string) {
-        console.log('Sending message:', messageContent);
-        this.messages.push();
+    onUserClick(user: any) {
+        this.currentUser = user;
+        this.ChatService.selectUser(user);
+        console.log('Selected user:', user);
+        let websiteName = window.location.host;
+        this.ChatService.getMessages(websiteName).subscribe({
+            next: (response: any) => {
+                console.log(response);
+                this.messageData = response.find((data: any) => data.chatBoxId === user.chatBoxId).messageList;
+                console.log(this.messageData)
+            }
+        });
+    }
 
-        console.log(this.messages);
-        this.ChatService.sendMessage(messageContent);
+    sendMessage() {
+        console.log('Sending message:', this.messageContent);
+        this.messages.push();
+        console.log(this.currentUser)
+      
+        this.ChatService.sendMessageEmployee(this.messageContent, 1, this.currentUser.employeeId);
+         this.changeDetector.detectChanges();
         this.messageContent = '';
     }
 
-    selectChatBox(chatBox: any) {
-        this.selectedChatBox = chatBox;
-    }
     logout() {
         this.afAuth.signOut();
         this.isLoggedIn = false;

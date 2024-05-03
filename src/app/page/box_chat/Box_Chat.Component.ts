@@ -24,8 +24,9 @@ export class Box_ChatComponent implements OnInit {
     apiResult = null;
     allowGuest = false;
     messageContent: string;
-    messages: any[]=[];
-
+    messages = [];
+    messageData: any[] = [];
+    customerId: any;
     constructor(
         private apiService: ApiService,
         private formBuilder: FormBuilder,
@@ -51,17 +52,23 @@ export class Box_ChatComponent implements OnInit {
         // });
         // this.ChatService.subscribeToChatBox();
         this.ChatService.messages.subscribe((message) => {
+            console.log('Received message:', message);
             if (message) {
                 this.messages.push(message);
                 this.changeDetector.detectChanges();
             }
         });
     }
-    sendMessage(messageContent: string) {
-      
+    sendMessage() {
+        
+        this.ChatService.sendMessageCustomer(
+            this.messageContent,
+            0,
+            this.customerId
+        );
         this.messages.push();
-        console.log(this.messages);
-        this.ChatService.sendMessage(messageContent);
+        console.log(this.customerId);
+     
         this.messageContent = '';
     }
 
@@ -73,6 +80,8 @@ export class Box_ChatComponent implements OnInit {
                 this.isLoggedIn = true;
                 this.customerName = result.additionalUserInfo.profile['name'];
                 console.log(this.customerName);
+                this.getMessage();
+
                 return {
                     customerName: this.customerName,
                     isLoggedIn: this.isLoggedIn
@@ -109,26 +118,47 @@ export class Box_ChatComponent implements OnInit {
     loginCustomer() {
         const customerName = this.form_login_customer.get('name').value;
         const phoneNumber = this.form_login_customer.get('phoneNumber').value;
-
+        const websiteName = window.location.host;
         this.http
             .post('http://localhost:8080/api/customer/login-process', {
                 customerName,
-                phoneNumber
+                phoneNumber,
+                websiteName
             })
             .subscribe({
                 next: (response) => {
                     console.log(response);
                     this.isLoggedIn = true;
                     this.customerName = customerName;
+                    this.customerId = response['customerId'];
+                    this.getMessage();
+                },
+
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+    }
+    getMessage() {
+        const websiteName = window.location.host;
+        const customerId = this.customerId;
+        const params = new HttpParams()
+            .set('website_name', websiteName)
+            .set('customer_id', customerId);
+
+        this.ChatService.subscribeToMessages(false);
+
+        this.http
+            .get('http://localhost:8080/api/chatbox/customer/get', {params})
+            .subscribe({
+                next: (response: any) => {
+                    console.log(response);
+                    this.messageData = response[0].messageList; // assuming the response contains a 'messages' property
+                    console.log(this.messageData);
                 },
                 error: (error) => {
                     console.log(error);
                 }
             });
     }
-    // getMessageContent() {
-    //         const websiteName = 'localhost:4200'; // replace with actual value
-    //         const customerId = 'e1edc6ed-af33-4a72-acfc-9219ce778d46';
-    //     this.ChatService.getMessages(customerId, websiteName);
-    // }
 }
