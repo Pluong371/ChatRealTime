@@ -21,9 +21,9 @@
         </div>
     </div>
 
-    <div class="col-8" style="margin-top: 4px">
-        <div class="header-chat">
-            <!-- <p>{{}}</p> -->
+    <div class="col-8" >
+        <div class="header-chat"*ngIf="currentUser" style="background-color: rgb(125, 129, 250); margin-left: -6px;border-radius: 10px;">
+   <p style="margin-left: 15px; margin-bottom: 2px; font-size: 26px;color: rgb(255, 255, 255);"> {{ currentUser.chatBoxName }}</p>
         </div>
         <div
             class="message_container"
