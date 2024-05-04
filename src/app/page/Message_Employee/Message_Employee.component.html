@@ -1,32 +1,147 @@
-<div class="row">
-    <div class="col-4">
+<div class="row" style="height: 91vh; overflow: hidden">
+    <div class="col-4" style="height: 50vh; overflow-y: auto">
+        <select style="width: 150px;">
+            <option
+                *ngFor="let website of websites"
+                [value]="website.websiteName"
+            >
+                {{ website.websiteName }}
+            </option>
+        </select>
         <div>
             <div *ngFor="let user of users">
-                <p (click)="onUserClick(user)">
+                <p class="user" (click)="onUserClick(user)">
                     {{ user.chatBoxName }}
+                    <span class="last-message">
+                        <!-- {{ user.lastMessage}} -->
+                    </span>
                 </p>
             </div>
-            <!-- @for (item of users; track $index) {
-            <div>{{$index}}{{item.chatBoxName}}</div>
-          } -->
         </div>
     </div>
-    <div class="col-8">
+
+    <div class="col-8" style="margin-top: 4px">
         <div class="header-chat">
             <!-- <p>{{}}</p> -->
         </div>
-        
-        <div *ngFor="let message of messageData">
-            <p>
-                {{ message.messageContent }}
-            </p>
+        <div
+            class="message_container"
+            #scrollMe
+            style="max-height: 83vh; overflow-y: auto"
+        >
+            <div *ngFor="let message of messageData">
+                <div
+                    *ngIf="message.messageType === 1"
+                    style="text-align: right; margin-right: 15px"
+                >
+                    <p
+                        style="
+                            background-color: rgb(34, 147, 253);
+                            border-radius: 10px;
+                            display: inline-block;
+                            padding: 5px 20px;
+                            font-size: 18px;
+                            color: white;
+                        "
+                    >
+                        {{ message.messageContent }}
+                    </p>
+                </div>
+                <div
+                    *ngIf="message.messageType !== 1"
+                    style="text-align: left; margin-left: 15px"
+                >
+                    <p
+                        style="
+                            background-color: rgb(34, 147, 253);
+                            border-radius: 10px;
+                            display: inline-block;
+                            padding: 5px 20px;
+                            font-size: 18px;
+                            color: white;
+                        "
+                    >
+                        {{ message.messageContent }}
+                    </p>
+                </div>
+            </div>
+            <div *ngFor="let web of messageCur">
+                <div
+                    *ngIf="web.messageType === 1"
+                    style="text-align: right; margin-right: 15px"
+                >
+                    <p
+                        style="
+                            background-color: rgb(34, 147, 253);
+                            border-radius: 10px;
+                            display: inline-block;
+                            padding: 5px 20px;
+                            font-size: 18px;
+                            color: white;
+                        "
+                    >
+                        {{ web.message }}
+                    </p>
+                </div>
+                <div
+                    *ngIf="web.messageType !== 1"
+                    style="text-align: left; margin-left: 15px"
+                >
+                    <p
+                        style="
+                            background-color: rgb(34, 147, 253);
+                            border-radius: 10px;
+                            display: inline-block;
+                            padding: 5px 20px;
+                            font-size: 18px;
+                            color: white;
+                        "
+                    >
+                        {{ web.message }}
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="chat-input">
+        <div
+            class="chat-input"
+            style="
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                background-color: #f8f8f8;
+                padding: 10px;
+                border-radius: 10px;
+                overflow: auto;
+            "
+        >
             <input
+                style="
+                    width: 50vw;
+                    max-height: auto;
+                    flex: 0.63;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 10px;
+                    margin-right: 10px;
+                "
                 [(ngModel)]="messageContent"
                 placeholder="Type your message here"
             />
-            <button (click)="sendMessage()">Send</button>
+            <button
+                (click)="sendMessage()"
+                style="
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                "
+            >
+                Send
+            </button>
         </div>
 
         <div></div>

@@ -28,6 +28,7 @@ export class Box_ChatComponent implements OnInit {
     messageData: any[] = [];
     customerId: any;
     chatBoxId: any;
+    messageIdList = [];
     constructor(
         private apiService: ApiService,
         private formBuilder: FormBuilder,
@@ -48,11 +49,20 @@ export class Box_ChatComponent implements OnInit {
         this.ChatService.messages.subscribe((message) => {
             console.log('Received message:', message);
             if (message) {
-                this.messages.push(message);
-                this.changeDetector.detectChanges();
-                console.log(message);
-                console.log(this.ChatService.messageBody);
+                console.log(this.ChatService.messageBody)
+                let temp = this.ChatService.messageBody;
+                if (!this.messageIdList.includes(temp.messageId)) {
+                    this.messageIdList.push(temp.messageId);
+                    this.messages.push({
+                        message: temp.messageContent,
+                        messageType: temp.messageType,
                 
+                    });
+                    this.changeDetector.detectChanges();
+                    console.log(message);
+
+                
+                }
             }
         });
         this.ChatService.setChatBoxId(this.chatBoxId);
