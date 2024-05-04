@@ -14,7 +14,7 @@ export class Admin_HomeComponent {
     website_name: string;
     url: string;
     allow_guest: number;
-
+    group: any[]=[]
     constructor(
         private http: HttpClient,
         private formBuilder: FormBuilder
@@ -25,6 +25,7 @@ export class Admin_HomeComponent {
             url: ['', Validators.required],
             allowGuest: [false]
         });
+        this.group = [];
     }
 
     onCreateWeb() {

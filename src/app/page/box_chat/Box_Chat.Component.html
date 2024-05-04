@@ -96,7 +96,8 @@
             </div>
 
             <div *ngIf="isLoggedIn == true" class="message_b">
-                <!-- <div class="message">
+                <div #scrollMe style=" overflow-y: auto">
+                    <!-- <div class="message">
                     <p class="text">Hello, {{customerName}}</p>
                 </div>
                 <div class="message_sent">
@@ -107,36 +108,43 @@
                     <button>Send</button>
                 </div> -->
 
-                <div *ngFor="let message of messageData">
-                    <div
-                    *ngIf="message.messageType === 0"
-                    style="text-align: right"
-                    >
-                    {{ message.messageContent }}
-                </div>
-                <div *ngIf="message.messageType !== 0" style="text-align: left">
-                    {{ message.messageContent }}
+                    <div *ngFor="let message of messageData">
+                        <div
+                            *ngIf="message.messageType === 0"
+                            style="text-align: right"
+                        >
+                            {{ message.messageContent }}
+                        </div>
+                        <div
+                            *ngIf="message.messageType !== 0"
+                            style="text-align: left"
+                        >
+                            {{ message.messageContent }}
+                        </div>
+                    </div>
+                    </div>
+                    <div *ngFor="let web of messages">
+                        <div
+                            *ngIf="web.messageType === 0"
+                            style="text-align: right"
+                        >
+                            {{ web.message }}
+                        </div>
+                        <div
+                            *ngIf="web.messageType !== 0"
+                            style="text-align: left"
+                        >
+                            {{ web.message }}
+                        </div>
                     </div>
                 </div>
-                <div *ngFor="let web of messages">
-                    <div
-                        *ngIf="web.messageType === 0"
-                        style="text-align: right"
-                    >
-                        {{ web.message }}
-                    </div>
-                    <div *ngIf="web.messageType !== 0" style="text-align: left">
-                        {{ web.message}}
-                    </div>
-                </div>
-
                 <div class="chat-input">
                     <input
                         [(ngModel)]="messageContent"
                         placeholder="Type your message here"
                     />
                     <button (click)="sendMessage()">Send</button>
-                </div>
+               
             </div>
         </div>
     </div>
