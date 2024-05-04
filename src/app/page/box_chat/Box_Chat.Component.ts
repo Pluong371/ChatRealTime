@@ -91,10 +91,33 @@ export class Box_ChatComponent implements OnInit,AfterViewChecked {
     }
 
     loginByGoogle() {
-        return this.afAuth
+        this.afAuth
             .signInWithPopup(new firebase.auth.GoogleAuthProvider())
             .then((result) => {
                 console.log(result);
+                const googleAccount = {
+                    email:  result.user.email,
+                    name: result.user.displayName,
+                    picture: result.user.uid
+                };
+                this.http
+                    .post(
+                        'http://localhost:8080/api/customer/logingoogle',
+                        googleAccount
+                    )
+                    .subscribe({
+                        next: (response: any) => {
+                            console.log(response);
+
+                            this.isLoggedIn = true;
+                            this.customerName = response.customerName;
+                            this.customerId = response.customerId;
+                            this.getMessageCustomer();
+                        },
+                        error: (error) => {
+                            console.log(error);
+                        }
+                    });
                 this.isLoggedIn = true;
                 this.customerName = result.additionalUserInfo.profile['name'];
                 console.log(this.customerName);
@@ -113,6 +136,7 @@ export class Box_ChatComponent implements OnInit,AfterViewChecked {
     logout() {
         this.afAuth.signOut();
         this.isLoggedIn = false;
+        this.messages = [];
     }
 
     toggleChatBox() {
