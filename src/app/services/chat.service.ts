@@ -3,7 +3,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {StompRService} from '@stomp/ng2-stompjs';
 import {Message} from '@stomp/stompjs';
 import {log} from 'console';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ChatService implements OnInit {
     private chatBox = '17500ab4-bfac-472b-acad-10da130fd17d';
     private userAccountId_static = '6dc6e559-54fe-4f27-9b7a-d34a828cc6e1';
     private changeMessage = new BehaviorSubject<Message>(null);
-
+    private subscriptions = new Map<string, Subscription>();
     messages: Observable<Message> = this.changeMessage.asObservable();
     selectedUser: any = {};
     chatBoxIdCustomer: string;
@@ -60,11 +60,25 @@ export class ChatService implements OnInit {
             console.log(this.chatBoxIdCustomer);
         }
 
-        this.stompService.subscribe(topic).subscribe((message: Message) => {
-            console.log(JSON.parse(message.body));
-            this.changeMessage.next(JSON.parse(message.body).messageContent);
-            this.messageBody= JSON.parse(message.body);
-        });
+        if (!this.subscriptions.has(topic)) {
+            const subscription = this.stompService
+                .subscribe(topic)
+                .subscribe((message: Message) => {
+                    console.log(JSON.parse(message.body));
+                    let parsedMessage = JSON.parse(message.body);
+                    if (parsedMessage && parsedMessage.messageContent) {
+                        this.changeMessage.next(parsedMessage.messageContent);
+                        setTimeout(() => {
+                            this.changeMessage.next(
+                                parsedMessage.messageContent
+                            );
+                        }, 0);
+                    }
+                    this.messageBody = JSON.parse(message.body);
+                });
+
+            this.subscriptions.set(topic, subscription);
+        }
     }
 
     getMessageContent(): Observable<any> {

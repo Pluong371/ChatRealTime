@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-4">
+        <div>
+            <div *ngFor="let user of users">
+                <p (click)="onUserClick(user)">
+                    {{ user.chatBoxName }}
+                </p>
+            </div>
+            <!-- @for (item of users; track $index) {
+            <div>{{$index}}{{item.chatBoxName}}</div>
+          } -->
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="header-chat">
+            <!-- <p>{{}}</p> -->
+        </div>
+        
+         <div *ngFor="let message of messageData ">
+                    <div
+                    *ngIf="message.messageType === 1"
+                    style="text-align: right"
+                    >
+                    {{ message.messageContent }}
+                </div>
+                <div *ngIf="message.messageType !== 1" style="text-align: left">
+                    {{ message.messageContent }}
+                    </div>
+                </div>
+                
+     
+
+        <div></div>
+    </div>
+</div>
