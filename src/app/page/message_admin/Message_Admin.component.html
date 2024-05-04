@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-4" style="height: 50vh; overflow-y: auto">
         <select style="width: 150px" (change)="onWebsiteChange($event)">
-            <option value="" value="" [disabled]="websiteSelected">Select a website</option>
+            <option value="" value="" [disabled]="websiteSelected">
+                Select a website
+            </option>
             <option
                 *ngFor="let website of websites"
                 [value]="website.websiteName"
@@ -21,9 +23,26 @@
         </div>
     </div>
     <div class="col-8">
-        <div class="header-chat"*ngIf="currentUser" style="background-color: rgb(125, 129, 250); margin-left: -6px;border-radius: 10px;">
-   <p style="margin-left: 15px; margin-bottom: 2px; font-size: 26px;color: rgb(255, 255, 255);"> {{ currentUser.chatBoxName }}</p>
-
+        <div
+            class="header-chat"
+            *ngIf="currentUser"
+            style="
+                background-color: rgb(125, 129, 250);
+                margin-left: -6px;
+                border-radius: 10px;
+            "
+        >
+            <p
+                style="
+                    margin-left: 15px;
+                    margin-bottom: 2px;
+                    font-size: 26px;
+                    color: rgb(255, 255, 255);
+                "
+            >
+                {{ currentUser.chatBoxName }}
+            </p>
+        </div>
         <div
             class="message_container"
             #scrollMe
@@ -36,12 +55,12 @@
                 >
                     <p
                         style="
-                            background-color: rgb(34, 147, 253);
+                            background-color: rgb(234, 145, 145);
                             border-radius: 10px;
                             display: inline-block;
                             padding: 5px 20px;
                             font-size: 18px;
-                            color: white;
+                            color: rgb(0, 0, 0);
                         "
                     >
                         {{ message.messageContent }}
@@ -53,12 +72,12 @@
                 >
                     <p
                         style="
-                            background-color: rgb(34, 147, 253);
+                            background-color: rgb(238, 165, 165);
                             border-radius: 10px;
                             display: inline-block;
                             padding: 5px 20px;
                             font-size: 18px;
-                            color: white;
+                            color: rgb(0, 0, 0);
                         "
                     >
                         {{ message.messageContent }}

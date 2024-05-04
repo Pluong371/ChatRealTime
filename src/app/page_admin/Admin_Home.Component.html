@@ -1,6 +1,35 @@
 <h1>Thêm Trang Mới</h1>
 
 <!-- Form lấy Thông Tin Trang và địa chỉ Trang -->
+<form (ngSubmit)="onCreateGroup()" [formGroup]="AddGroupForm">
+        <div class="form-group">
+        <label for="group_name">Ten Nhom</label>
+        <input
+            type="text"
+            class="form-control"
+            id="group_name"
+            formControlName="group_name"
+            [(ngModel)]="group_name"
+            required
+        />
+    </div>
+   
+<div class="form-group">
+    <label for="allowGuest">Allow Guest</label>
+    <input type="checkbox" formControlName="allowGuest" id="allowGuest">
+</div>
+
+    <button type="submit" (click)="onCreateGroup()" class="btn btn-primary">Thêm Nhóm</button>
+</form>
+
+
+
+
+
+
+
+
+
 <form (ngSubmit)="onCreateWeb()" [formGroup]="AddWebForm">
         <div class="form-group">
         <label for="website_name">Ten Trang</label>
@@ -24,10 +53,12 @@
             required
         />
     </div>
-<div class="form-group">
-    <label for="allowGuest">Allow Guest</label>
-    <input type="checkbox" formControlName="allowGuest" id="allowGuest">
+   <div>
+    <select [(ngModel)]="selectedGroup" (ngModelChange)="updateSelectedGroup($event)">
+        <option *ngFor="let group of groups" [value]="group.groupId">{{group.groupName}}</option>
+    </select>
 </div>
+
 
     <button type="submit" (click)="onCreateWeb()" class="btn btn-primary">Thêm Trang</button>
 </form>
