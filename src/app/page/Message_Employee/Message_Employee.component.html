@@ -1,6 +1,7 @@
 <div class="row" style="height: 91vh; overflow: hidden">
     <div class="col-4" style="height: 50vh; overflow-y: auto">
-        <select style="width: 150px;">
+        <select style="width: 150px;" (change)="onWebsiteChange($event)">
+             <option value="" value="" [disabled]="websiteSelected">Select a website</option>
             <option
                 *ngFor="let website of websites"
                 [value]="website.websiteName"
@@ -8,7 +9,7 @@
                 {{ website.websiteName }}
             </option>
         </select>
-        <div>
+        <div *ngIf="websiteName">
             <div *ngFor="let user of users">
                 <p class="user" (click)="onUserClick(user)">
                     {{ user.chatBoxName }}
@@ -102,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <div
+        <div 
             class="chat-input"
             style="
                 position: fixed;
