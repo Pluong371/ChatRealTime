@@ -105,7 +105,8 @@ export class ChatService implements OnInit {
     }
     getMessages(websiteName: string): Observable<any> {
         console.log(this.selectedUser.employeeId);
-        let employeeId = this.selectedUser.employeeId;
+        // let employeeId = this.selectedUser.employeeId;
+        let employeeId = '6dc6e559-54fe-4f27-9b7a-d34a828cc6e1';
         console.log(employeeId);
         const params = new HttpParams()
             .set('website_name', websiteName)

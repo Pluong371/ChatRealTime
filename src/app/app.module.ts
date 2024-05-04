@@ -29,6 +29,7 @@ import {Message_Employee} from './page/Message_Employee/Message_Employee.compone
 import {Box_ChatComponent} from './page/box_chat/Box_Chat.Component';
 import { StompRService } from '@stomp/ng2-stompjs';
 import { Admin_HomeComponent } from './page_admin/Admin_Home.Component';
+import { Message_Admin } from './page/message_admin/Message_Admin.component';
 
 registerLocaleData(localeEn, 'en-EN');
 
@@ -50,7 +51,8 @@ const firebaseConfig = {
         Message_Employee,
         Box_ChatComponent,
         employee_loginComponent,
-        Admin_HomeComponent
+        Admin_HomeComponent,
+        Message_Admin,
     ],
     imports: [
         ProfabricComponentsModule,

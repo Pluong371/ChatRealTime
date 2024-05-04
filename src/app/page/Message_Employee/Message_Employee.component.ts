@@ -38,6 +38,7 @@ export class Message_Employee implements OnInit, AfterViewChecked {
     messageCur: any[] = [];
     messageIdList = [];
     websites: any[] = [];
+    websiteSelected = false;
     ngAfterViewChecked(): void {
         this.scrollToBottom();
     }
@@ -119,7 +120,7 @@ export class Message_Employee implements OnInit, AfterViewChecked {
         this.updateMessages();
         this.ChatService.selectUser(user);
         console.log('Selected user:', user);
-        let websiteName = window.location.host;
+        let websiteName = this.websiteName;
         this.ChatService.getMessages(websiteName).subscribe({
             next: (response: any) => {
                 console.log(response);
@@ -130,6 +131,19 @@ export class Message_Employee implements OnInit, AfterViewChecked {
             }
         });
         this.getLastMessage();
+    }
+    onWebsiteChange(event) {
+        this.websiteName = event.target.value;
+        if (this.websiteName) {
+            this.websiteSelected = true;
+            this.ChatService.getMessages(this.websiteName).subscribe(
+                (users: any[]) => {
+                    this.users = users;
+                }
+            );
+        } else {
+            this.users = [];
+        }
     }
     updateMessages() {
         this.messageCur = this.messages.filter(
@@ -156,8 +170,11 @@ export class Message_Employee implements OnInit, AfterViewChecked {
     }
     getWebsite(employeeId: string) {
         const params = new HttpParams().set('employee_id', employeeId);
-        return this.http.get('http://localhost:8080/api/web/employee/get-website-list', {
-            params
-        });
+        return this.http.get(
+            'http://localhost:8080/api/web/employee/get-website-list',
+            {
+                params
+            }
+        );
     }
 }

@@ -12,6 +12,7 @@ import {Message_Employee} from './page/Message_Employee/Message_Employee.compone
 import {Test} from './page/page_test/home.component';
 import {Box_ChatComponent} from './page/box_chat/Box_Chat.Component';
 import { Admin_HomeComponent } from './page_admin/Admin_Home.Component';
+import { Message_Admin } from './page/message_admin/Message_Admin.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,11 @@ const routes: Routes = [
             {
                 path: 'admin_home',
                 component: Admin_HomeComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'message_admin',
+                component: Message_Admin,
                 canActivate: [AuthGuard]
             },
         ]

@@ -1,34 +1,111 @@
 <div class="row">
-    <div class="col-4">
-        <div>
+    <div class="col-4" style="height: 50vh; overflow-y: auto">
+        <select style="width: 150px" (change)="onWebsiteChange($event)">
+            <option value="" value="" [disabled]="websiteSelected">Select a website</option>
+            <option
+                *ngFor="let website of websites"
+                [value]="website.websiteName"
+            >
+                {{ website.websiteName }}
+            </option>
+        </select>
+        <div *ngIf="websiteName">
             <div *ngFor="let user of users">
-                <p (click)="onUserClick(user)">
+                <p class="user" (click)="onUserClick(user)">
                     {{ user.chatBoxName }}
+                    <span class="last-message">
+                        <!-- {{ user.lastMessage}} -->
+                    </span>
                 </p>
             </div>
-            <!-- @for (item of users; track $index) {
-            <div>{{$index}}{{item.chatBoxName}}</div>
-          } -->
         </div>
     </div>
     <div class="col-8">
-        <div class="header-chat">
-            <!-- <p>{{}}</p> -->
-        </div>
-        
-         <div *ngFor="let message of messageData ">
-                    <div
+        <div class="header-chat"*ngIf="currentUser" style="background-color: rgb(125, 129, 250); margin-left: -6px;border-radius: 10px;">
+   <p style="margin-left: 15px; margin-bottom: 2px; font-size: 26px;color: rgb(255, 255, 255);"> {{ currentUser.chatBoxName }}</p>
+
+        <div
+            class="message_container"
+            #scrollMe
+            style="max-height: 85vh; overflow-y: auto"
+        >
+            <div *ngFor="let message of messageData">
+                <div
                     *ngIf="message.messageType === 1"
-                    style="text-align: right"
+                    style="text-align: right; margin-right: 15px"
+                >
+                    <p
+                        style="
+                            background-color: rgb(34, 147, 253);
+                            border-radius: 10px;
+                            display: inline-block;
+                            padding: 5px 20px;
+                            font-size: 18px;
+                            color: white;
+                        "
                     >
-                    {{ message.messageContent }}
+                        {{ message.messageContent }}
+                    </p>
                 </div>
-                <div *ngIf="message.messageType !== 1" style="text-align: left">
-                    {{ message.messageContent }}
-                    </div>
+                <div
+                    *ngIf="message.messageType !== 1"
+                    style="text-align: left; margin-left: 15px"
+                >
+                    <p
+                        style="
+                            background-color: rgb(34, 147, 253);
+                            border-radius: 10px;
+                            display: inline-block;
+                            padding: 5px 20px;
+                            font-size: 18px;
+                            color: white;
+                        "
+                    >
+                        {{ message.messageContent }}
+                    </p>
                 </div>
-                
-     
+            </div>
+        </div>
+        <div
+            class="chat-input"
+            style="
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                background-color: #f8f8f8;
+                padding: 10px;
+                border-radius: 10px;
+                overflow: auto;
+            "
+        >
+            <input
+                style="
+                    width: 50vw;
+                    max-height: auto;
+                    flex: 0.63;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 10px;
+                    margin-right: 10px;
+                "
+                [(ngModel)]="messageContent"
+                placeholder="Type your message here"
+            />
+            <button
+                style="
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                "
+            >
+                Send
+            </button>
+        </div>
 
         <div></div>
     </div>
